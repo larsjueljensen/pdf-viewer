@@ -4,7 +4,7 @@
   "description": "A web component for displaying PDF files",
   "main": "index.js",
   "author": "Lars Juel Jensen",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "pdfjs-dist": "^4.0.379"
   },

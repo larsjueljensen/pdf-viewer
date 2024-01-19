@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <style>
+            html {
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                background: lightblue;
+            }
+
+            pdf-viewer {
+                z-index: 10;
+                position: fixed;
+                top: 0vw;
+                bottom: 0vw;
+                left: 0vw;
+                right: 0vw;
+            }
+
+            h1, button {
+                position: relative;
+                z-index: 20;
+            }
+
+
+        </style>
+        <script type="module" src="main.bundle.js"></script>
+        <script>
+
+            const browse = (element, step) => {
+                element.parentElement.querySelector("pdf-viewer").browse(step);
+            }
+
+            const changeSrc = (element, src) => {
+                const viewer = element.parentElement.querySelector("pdf-viewer");
+                viewer.setAttribute("src", src);
+                const scale = (src.toLowerCase() === "fmrk.pdf") ? 0.5 : 1.0;
+                viewer.setAttribute("scale", scale);
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>PDF Viewer</h1>
+        <pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1.0"></pdf-viewer>
+        <button onclick="browse(this, -1)">&lt;</button>
+        <button onclick="browse(this, 1);">&gt;</button><br><br>
+        <button onclick="changeSrc(this, 'kv.pdf')">Komfyrvakt</button><br><br>
+        <button onclick="changeSrc(this, 'nif.pdf')">Nito Forsikring</button><br><br>
+        <button onclick="changeSrc(this, 'vvb.pdf')">Varmtvannsbereder</button><br><br>
+    </body>
+</html>

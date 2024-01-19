@@ -1,0 +1,61 @@
+<html>
+<head>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: lightblue;
+        }
+
+    </style>
+    <script type="module" src="main.bundle.js"></script>
+    <script>
+
+        const browse = (element, step) => {
+            element.parentElement.querySelector("pdf-viewer").browse(step);
+        }
+
+        const changeSrc = (element, src) => {
+            const viewer = element.parentElement.querySelector("pdf-viewer");
+            viewer.setAttribute("src", src);
+            const scale = (src.toLowerCase() === "fmrk.pdf") ? 0.5 : 1.0;
+            viewer.setAttribute("scale", scale);
+        }
+
+    </script>
+</head>
+<body>
+<h1>PDF Viewer</h1>
+<table>
+    <tbody>
+    <tr>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+    </tr>
+    <tr>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+    </tr>
+    <tr>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+    </tr>
+    <tr>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+        <td><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

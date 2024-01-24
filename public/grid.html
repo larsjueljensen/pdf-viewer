@@ -3,7 +3,7 @@
 <head>
     <style>
         .item1 { grid-area: header;  overflow: auto}
-        .item2 { grid-area: menu;  overflow: auto; min-width: 200px; }
+        .item2 { grid-area: menu;  overflow: auto }
         .item3 { grid-area: main;  overflow: auto }
         .item4 { grid-area: right;  overflow: auto}
         .item5 { grid-area: footer;  overflow: auto}
@@ -15,14 +15,18 @@
 
         .grid-container {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             grid-template-areas:
                 'header header header header header header'
                 'menu main main main right right'
                 'menu footer footer footer footer footer';
+            grid-template-rows: auto 1fr;
             gap: 10px;
             background-color: #2196F3;
             margin: 10px auto;
             width: 90%;
+            min-height: 0;
+            min-width: 0;
         }
 
         .grid-container > div {
@@ -31,34 +35,20 @@
             font-family: sans-serif;
         }
     </style>
-    <script type="module" src="main.bundle.js"></script>
+    <script type="module" src="pdf-viewer.js"></script>
 </head>
 <body>
 
 <h1>Grid Layout</h1>
 
 <div class="grid-container">
-    <div class="item1"><pdf-viewer id="viewer1" src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></div>
+    <div class="item1"><pdf-viewer id="viewer1" src="PDF Viewer.pdf" page="1" rotation="90" scale="0.45"></pdf-viewer></div>
     <div class="item2">
-        <div>
-            <button onclick="browse(-1)">&lt;</button>
-            <button onclick="browse(1)">&gt;</button>
-        </div>
-        <div>
-            Scale
-            <select onchange="setScale(this.value)">
-                <option value="0.25">25%</option>
-                <option value="0.5">50%</option>
-                <option value="0.75">75%</option>
-                <option value="1.0" selected>100%</option>
-                <option value="1.5">150%</option>
-                <option value="2.0">200%</option>
-            </select>
-        </div>
+        <span>The component can be used everywhere an HTML element can be used. You can also rotate and scale the document.</span>
     </div>
-    <div class="item3"><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></div>
-    <div class="item4"><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></div>
-    <div class="item5"><pdf-viewer src="nif.pdf" page="1" rotation="0" scale="1"></pdf-viewer></div>
+    <div class="item3"><pdf-viewer src="PDF Viewer.pdf" page="1" rotation="0" scale="0.35"></pdf-viewer></div>
+    <div class="item4"><pdf-viewer src="PDF Viewer.pdf" page="1" rotation="0" scale="0.35"></pdf-viewer></div>
+    <div class="item5"><pdf-viewer src="PDF Viewer.pdf" page="1" rotation="-90" scale="0.45"></pdf-viewer></div>
 </div>
 
 <script>

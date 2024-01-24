@@ -37,5 +37,32 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     devServer: {
+        proxy: {
+            '/basics.pdf': {
+                target: 'https://pdfa.org',
+                pathRewrite: {'^/basics.pdf' : '/wp-content/uploads/2023/08/PDF-Basics-CheatSheet.pdf'},
+                secure: false,
+                changeOrigin: true
+            },
+            '/graphics.pdf': {
+                target: 'https://pdfa.org',
+                pathRewrite: {'^/graphics.pdf' : '/wp-content/uploads/2023/08/PDF-Operators-CheatSheet.pdf'},
+                secure: false,
+                changeOrigin: true
+            },
+            '/objects.pdf': {
+                target: 'https://pdfa.org',
+                pathRewrite: {'^/objects.pdf' : '/wp-content/uploads/2023/08/PDF-CommonObjects-CheatSheet.pdf'},
+                secure: false,
+                changeOrigin: true
+            },
+            '/color.pdf': {
+                target: 'https://pdfa.org',
+                pathRewrite: {'^/color.pdf' : '/wp-content/uploads/2023/08/PDF-Color-CheatSheet.pdf'},
+                secure: false,
+                changeOrigin: true
+            }
+        },
         compress: true
-    }};
+    }
+};

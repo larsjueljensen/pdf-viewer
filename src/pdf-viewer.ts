@@ -1,6 +1,6 @@
 import * as pdfjs from "pdfjs-dist"
 import {PageViewport, PDFDocumentProxy, PDFPageProxy, RenderTask} from "pdfjs-dist"
-import {RenderParameters} from "pdfjs-dist/types/src/display/api";
+import {RenderParameters, PDFDocumentLoadingTask, OnProgressParameters} from "pdfjs-dist/types/src/display/api";
 import workerContents from "pdfjs-dist/build/pdf.worker.min.mjs"
 
 if (typeof window !== "undefined" && 'Worker' in window) {
@@ -57,6 +57,7 @@ class PdfViewer extends HTMLElement implements HTMLElement{
                 :host {
                     display: flex;
                     overflow: auto;
+                    padding: 10px;
                 }
                                 
                 #container { margin: auto; }
@@ -123,12 +124,21 @@ class PdfViewer extends HTMLElement implements HTMLElement{
             this.setAttribute("page", "1");
         }
 
-        this.pdf = await pdfjs.getDocument({
+        const loadingTask : PDFDocumentLoadingTask = pdfjs.getDocument({
             url: src,
             disableStream: true,
             disableAutoFetch: true
-        }).promise;
-        await this.render();
+        });
+
+        loadingTask.onProgress = function (param : OnProgressParameters) {
+            console.log({param});
+        }
+
+
+        loadingTask.promise
+            .then(pdfDocument => this.pdf = pdfDocument)
+            .then(() => this.render())
+            .then(() => console.log(`PDF Document [${src}] loaded and rendered`));
     }
 
     async setPage(page:number) {

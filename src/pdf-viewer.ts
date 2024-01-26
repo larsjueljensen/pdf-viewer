@@ -130,11 +130,6 @@ class PdfViewer extends HTMLElement implements HTMLElement{
             disableAutoFetch: true
         });
 
-        loadingTask.onProgress = function (param : OnProgressParameters) {
-            console.log({param});
-        }
-
-
         loadingTask.promise
             .then(pdfDocument => this.pdf = pdfDocument)
             .then(() => this.render())
@@ -187,9 +182,8 @@ class PdfViewer extends HTMLElement implements HTMLElement{
                 };
 
                 this.renderTask = this.page.render(renderCtx);
-                const self = this;
-                this.renderTask.promise.then(() => self.flipCanvas());
-                return await this.renderTask.promise;
+                this.renderTask.promise.then(() => this.flipCanvas());
+                return this.renderTask.promise;
             }
         }
 

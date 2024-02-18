@@ -7,16 +7,67 @@
             }
 
             body {
-                background: lightblue;
-            }
+                background: rgb(98,98,242);
+                background: linear-gradient(150deg, rgba(98,98,242,1) 35%, rgba(0,212,255,1) 100%);            }
 
             pdf-viewer {
                 z-index: 10;
                 position: fixed;
-                top: 0vw;
-                bottom: 0vw;
-                left: 0vw;
-                right: 0vw;
+                top: 10vh;
+                bottom: 10vh;
+                left: 20vw;
+                right: 10vw;
+                border: 15px double rgba(0,0,0,0.5);
+            }
+
+            #menu {
+                position: fixed;
+                top: 10vh;
+                bottom: 10vh;
+                left: 5vw;
+                width: 14vw;
+                display: grid;
+                row-gap: 0px;
+                column-gap: 5px;
+            }
+
+            #scalemenu {
+                position: fixed;
+                bottom: 10vh;
+                height: 45vh;
+                right: 5vw;
+                width: 4vw;
+                display: grid;
+            }
+
+            #status {
+                position: fixed;
+                height: 10vh;
+                bottom: 0vh;
+                left: 30vw;
+                right: 20vw;
+                display: grid;
+                place-items: center;
+                font-family: sans-serif;
+                font-weight: bolder;
+            }
+
+            #previous {
+                position: fixed;
+                height: 6vh;
+                bottom: 2vh;
+                left: 22vw;
+                width: 8vw;
+                font-weight: bolder;
+            }
+
+            #next {
+                position: fixed;
+                height: 6vh;
+                bottom: 2vh;
+                right: 12vw;
+                width: 8vw;
+                font-weight: bolder;
             }
 
             h1, button {
@@ -24,32 +75,51 @@
                 z-index: 20;
             }
 
+            #logo {
+                width: 25vw;
+                filter: drop-shadow(0 0 0.75rem crimson);
+                transform: rotate(30deg);
+                position: absolute;
+                top: 10vh;
+                right: 5vh;
+                pointer-events: none;
+            }
 
         </style>
         <script type="module" src="pdf-viewer.js"></script>
         <script>
-
-            const browse = (element, step) => {
-                element.parentElement.querySelector("pdf-viewer").browse(step);
-            }
-
-            const changeSrc = (element, src) => {
-                const viewer = element.parentElement.querySelector("pdf-viewer");
-                viewer.setAttribute("src", src);
-                const scale = (src.toLowerCase() === "fmrk.pdf") ? 0.5 : 1.0;
-                viewer.setAttribute("scale", scale);
-            }
-
+            const browse = (step) => { document.querySelector("pdf-viewer").browse(step); }
+            const changeSrc = (src) => { document.querySelector("pdf-viewer").setAttribute("src", src); }
+            const scaleTo = (scale) => { document.querySelector("pdf-viewer").setAttribute("scale", scale); }
         </script>
     </head>
     <body>
-        <h1>PDF Viewer</h1>
-        <pdf-viewer src="basics.pdf" page="1" rotation="0" scale="1.0"></pdf-viewer>
-        <button onclick="browse(this, -1)">&lt;</button>
-        <button onclick="browse(this, 1);">&gt;</button><br><br>
-        <button onclick="changeSrc(this, 'basics.pdf')">Basics</button><br><br>
-        <button onclick="changeSrc(this, 'graphics.pdf')">Graphics</button><br><br>
-        <button onclick="changeSrc(this, 'objects.pdf')">Objects</button><br><br>
-        <button onclick="changeSrc(this, 'color.pdf')">Color</button><br><br>
+        <h1><img id="logo" src="logo.svg"></h1>
+        <pdf-viewer src="basics.pdf" page="1" rotation="45" scale="1.5"></pdf-viewer>
+        <div id="menu">
+            <button onclick="changeSrc('basics.pdf')">Basics</button>
+            <button onclick="changeSrc('graphics.pdf')">Graphics</button>
+            <button onclick="changeSrc('objects.pdf')">Objects</button>
+            <button onclick="changeSrc('color.pdf')">Color</button>
+            <button onclick="changeSrc('PDF Viewer.pdf')">PDFViewer</button>
+        </div>
+        <div id="scalemenu">
+            <button onclick="scaleTo(0.25)">25%</button>
+            <button onclick="scaleTo(0.5)">50%</button>
+            <button onclick="scaleTo(0.75)">75%</button>
+            <button onclick="scaleTo(1)">100%</button>
+            <button onclick="scaleTo(1.55)">150%</button>
+            <button onclick="scaleTo(2)">200%</button>
+        </div>
+
+        <button id="previous" onclick="browse(-1)">&lt;</button>
+        <button id="next" onclick="browse(1)">&gt;</button>
+        <div id="status"></div>
+
+        <script>
+            document.querySelector("pdf-viewer").addEventListener('onpagechanged', (event) => {
+                document.querySelector("#status").innerHTML = event.detail.page;
+            });
+        </script>
     </body>
 </html>
